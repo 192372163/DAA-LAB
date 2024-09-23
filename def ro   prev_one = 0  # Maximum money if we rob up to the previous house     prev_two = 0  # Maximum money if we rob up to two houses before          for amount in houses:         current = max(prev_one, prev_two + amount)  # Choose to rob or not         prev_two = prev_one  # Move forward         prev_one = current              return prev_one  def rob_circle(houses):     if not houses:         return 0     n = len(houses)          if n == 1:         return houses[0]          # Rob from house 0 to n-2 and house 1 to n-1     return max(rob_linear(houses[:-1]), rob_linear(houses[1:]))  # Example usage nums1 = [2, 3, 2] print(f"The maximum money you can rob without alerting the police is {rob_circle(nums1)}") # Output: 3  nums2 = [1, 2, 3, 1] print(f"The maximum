@@ -1,0 +1,28 @@
+def rob_linear(houses):
+    prev_one = 0  
+    prev_two = 0  
+    
+    for amount in houses:
+        current = max(prev_one, prev_two + amount)  
+        prev_two = prev_one  
+        prev_one = current
+        
+    return prev_one
+
+def rob_circle(houses):
+    if not houses:
+        return 0
+    n = len(houses)
+    
+    if n == 1:
+        return houses[0]
+    
+    # Rob from house 0 to n-2 and house 1 to n-1
+    return max(rob_linear(houses[:-1]), rob_linear(houses[1:]))
+
+# Example usage
+nums1 = [2, 3, 2]
+print(f"The maximum money you can rob without alerting the police is {rob_circle(nums1)}") # Output: 3
+
+nums2 = [1, 2, 3, 1]
+print(f"The maximum money you can rob without alerting the police is {rob_circle(nums2)}") # Output: 4
